@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  hdhomerun-to-chromecast:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - HDHOMERUN_IP=192.168.0.100  # Replace with your HDHomeRun IP
+      - CHANNEL=8                   # Replace with your desired channel
+      - CHROMECAST_IP=192.168.0.32  # Replace with your Chromecast name
+    network_mode: host              # Use host networking for device access
+    ports:
+      - "8000:8000"                 # Expose the ffmpeg streaming port
+    restart: unless-stopped         # Restart policy
