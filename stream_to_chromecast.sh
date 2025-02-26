@@ -1,11 +1,22 @@
 #!/bin/bash
 
-# Variables (replace these with your actual values)
-HDHOMERUN_IP="192.168.1.100"  # Replace with your HDHomeRun device's IP
-CHANNEL="8"                   # Replace with the channel number you want to stream
-CHROMECAST_NAME="Living Room" # Replace with your Chromecast device name
+# Check if required environment variables are set, provide defaults or exit if missing
+if [ -z "$HDHOMERUN_IP" ]; then
+    echo "Error: HDHOMERUN_IP environment variable is not set."
+    exit 1
+fi
 
-# Discover HDHomeRun stream URL (assuming a simple HTTP stream endpoint)
+if [ -z "$CHANNEL" ]; then
+    echo "Error: CHANNEL environment variable is not set."
+    exit 1
+fi
+
+if [ -z "$CHROMECAST_NAME" ]; then
+    echo "Error: CHROMECAST_NAME environment variable is not set."
+    exit 1
+fi
+
+# Construct the HDHomeRun stream URL using environment variables
 STREAM_URL="http://${HDHOMERUN_IP}:5004/auto/v${CHANNEL}"
 
 # Use ffmpeg to transcode the stream to a Chromecast-compatible format (e.g., MP4/H.264)
